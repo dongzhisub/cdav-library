@@ -65,7 +65,7 @@ export function getRootSkeleton() {
  */
 export function serialize(json) {
 	json = json || {};
-	console.log(json);
+
 	if (typeof json !== 'object' || !Object.prototype.hasOwnProperty.call(json, 'name')) {
 		return '';
 	}
@@ -78,13 +78,12 @@ export function serialize(json) {
 
 function xmlify(xmlDoc, parent, json) {
 	const [ns, localName] = json.name;
-	//const element = xmlDoc.createElementNS(ns, getPrefixedNameForNamespace(ns, localName));
+	// const element = xmlDoc.createElementNS(ns, getPrefixedNameForNamespace(ns, localName));
 	const element = xmlDoc.createElement(getShortName(ns, localName));
-	if ( xmlDoc == parent ) // it is a root 
-	{
-			Object.keys(NS.NS_MAP).forEach(key => {
-				element.setAttribute("xmlns:"+key,NS.NS_MAP[key])
-				})
+	if (xmlDoc === parent) { // it is a root, all NS shortname will be added here
+		Object.keys(NS.NS_MAP).forEach(key => {
+			element.setAttribute('xmlns:' + key, NS.NS_MAP[key]);
+    });
 	}
 
 	json.attributes = json.attributes || [];
@@ -113,13 +112,15 @@ export function resetPrefixMap() {
 	prefixMap = {};
 }
 
-function getShortName(ns,localName){
+function getShortName(ns, localName) {
 	for (const [key, value] of Object.entries(NS.NS_MAP)) {
-		if ( value == ns ) 
-			return key+":"+localName;
+		if (value === ns) {
+			return key + ':' + localName;
+    }
 	}
 }
 
+/*
 function getPrefixedNameForNamespace(ns, localName) {
 	if (!Object.prototype.hasOwnProperty.call(prefixMap, ns)) {
 		prefixMap[ns] = 'x' + Object.keys(prefixMap).length;
@@ -127,3 +128,4 @@ function getPrefixedNameForNamespace(ns, localName) {
 
 	return prefixMap[ns] + ':' + localName;
 }
+*/

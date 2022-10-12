@@ -21,8 +21,9 @@ module.exports = {
 		// 1tbs brace style
 		'brace-style': 'error',
 		// tabs only
-		indent: ['error', 'tab'],
+		indent: ['off'],
 		'no-tabs': 0,
+		'no-unused-vars': ['off'],
 		// only debug console
 		'no-console': ['error', { allow: ['error', 'warn', 'debug'] }],
 		// classes blocks
